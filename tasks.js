@@ -83,13 +83,13 @@ for (let task of taskTable) {
 }
 
 let tableHead = [
-  "started At",
-  "finished At",
-  "totalTime",
-  "tasks Given",
-  "tasks Finished",
-  "tasksFinishedPercent",
-  "topic",
+  "Started At",
+  "Finished At",
+  "Total Time",
+  "Tasks Given",
+  "Tasks Finished",
+  "Tasks Finished Percent",
+  "Topic",
 ];
 document.write("<table>");
 document.write("<tr class = 'tr'>");
