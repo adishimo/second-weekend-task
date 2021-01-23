@@ -1,73 +1,73 @@
 "use strict";
 
 let task1 = {
-  startedAt: new Date("2021-01-3:13:00"),
-  finishedAt: new Date("2021-01-11:19:00"),
+  startedAt: new Date("2021-01-01:13:00"),
+  finishedAt: new Date("2021-01-01:17:00"),
   tasksGiven: 2,
   tasksFinished: 2,
   topic: "Html",
 };
 
 let task2 = {
-  startedAt: new Date("2021-01-4:13:00"),
-  finishedAt: new Date("2021-01-4:22:00"),
+  startedAt: new Date("2021-01-02:12:00"),
+  finishedAt: new Date("2021-01-02:22:00"),
   tasksGiven: 2,
   tasksFinished: 2,
   topic: "Html",
 };
 
 let task3 = {
-  startedAt: new Date("2021-01-5:13:00"),
-  finishedAt: new Date("2021-01-5:23:00"),
-  tasksGiven: 2,
+  startedAt: new Date("2021-01-03:13:00"),
+  finishedAt: new Date("2021-01-03:23:00"),
+  tasksGiven: 3,
   tasksFinished: 2,
   topic: "Html",
 };
 
 let task4 = {
-  startedAt: new Date("2021-01-6:13:00"),
-  finishedAt: new Date("2021-01-6:19:00"),
-  tasksGiven: 2,
-  tasksFinished: 2,
+  startedAt: new Date("2021-01-04:13:00"),
+  finishedAt: new Date("2021-01-04:19:00"),
+  tasksGiven: 5,
+  tasksFinished: 1,
   topic: "Html",
 };
 
 let task5 = {
-  startedAt: new Date("2021-01-7:14:00"),
-  finishedAt: new Date("2021-01-7:00:00"),
+  startedAt: new Date("2021-01-05:10:00"),
+  finishedAt: new Date("2021-01-05:11:00"),
   tasksGiven: 2,
   tasksFinished: 2,
   topic: "css",
 };
 
 let task6 = {
-  startedAt: new Date("2021-01-8:11:00"),
-  finishedAt: new Date("2021-01-8:22:00"),
+  startedAt: new Date("2021-01-06:11:00"),
+  finishedAt: new Date("2021-01-06:22:00"),
   tasksGiven: 2,
   tasksFinished: 2,
   topic: "css",
 };
 
 let task7 = {
-  startedAt: new Date("2021-01-9:12:00"),
-  finishedAt: new Date("2021-01-9:23:00"),
-  tasksGiven: 2,
-  tasksFinished: 2,
+  startedAt: new Date("2021-01-07:12:00"),
+  finishedAt: new Date("2021-01-07:17:00"),
+  tasksGiven: 3,
+  tasksFinished: 1,
   topic: "js",
 };
 
 let task8 = {
-  startedAt: new Date("2021-01-10:11:00"),
-  finishedAt: new Date("2021-01-10:22:00"),
+  startedAt: new Date("2021-01-08:11:00"),
+  finishedAt: new Date("2021-01-08:22:00"),
   tasksGiven: 2,
   tasksFinished: 2,
   topic: "js",
 };
 
 let task9 = {
-  startedAt: new Date("2021-01-11:10:00"),
-  finishedAt: new Date("2021-01-11:23:00"),
-  tasksGiven: 2,
+  startedAt: new Date("2021-01-09:10:00"),
+  finishedAt: new Date("2021-01-09:23:00"),
+  tasksGiven: 4,
   tasksFinished: 2,
   topic: "js",
 };
@@ -81,19 +81,18 @@ for (let task of taskTable) {
   task.startedAt = task.startedAt.toLocaleTimeString();
   task.finishedAt = task.finishedAt.toLocaleTimeString();
 }
-console.log(task1.startedAt);
 
 let tableHead = [
   "started At",
   "finished At",
+  "totalTime",
   "tasks Given",
   "tasks Finished",
-  "topic",
-  "totalTime",
   "tasksFinishedPercent",
+  "topic",
 ];
 document.write("<table>");
-document.write("<tr>");
+document.write("<tr class = 'tr'>");
 for (let head of tableHead) {
   document.write("<th>" + head + "</th>");
 }
@@ -103,13 +102,48 @@ for (let task of taskTable) {
   document.write("<tr>");
   document.write("<td>" + task.startedAt + "</td>");
   document.write("<td>" + task.finishedAt + "</td>");
+  if (task.totalTime <= 2) {
+    let className = "totalTimeGood";
+    document.write(
+      `<td class="${className}"> ${task.totalTime + "hours"} </td>`
+    );
+  }
+  if (task.totalTime > 2 && task.totalTime <= 5) {
+    let className = "totalTimeM";
+    document.write(
+      `<td class="${className}"> ${task.totalTime + "hours"}  </td>`
+    );
+  }
+
+  if (task.totalTime > 5) {
+    let className = "totalTimeBad";
+    document.write(
+      `<td class="${className}"> ${task.totalTime + "hours"} </td>`
+    );
+  }
   document.write("<td>" + task.tasksGiven + "</td>");
   document.write("<td>" + task.tasksFinished + "</td>");
+  if (task.tasksFinishedPercent <= 50) {
+    let className = "FinishedPercentBad";
+    document.write(
+      `<td class="${className}"> ${task.tasksFinishedPercent + "%"} </td>`
+    );
+  }
+
+  if (task.tasksFinishedPercent > 50 && task.tasksFinishedPercent <= 75) {
+    let className = "FinishedPercentM";
+    document.write(
+      `<td class="${className}"> ${task.tasksFinishedPercent + "%"} </td>`
+    );
+  }
+  if (task.tasksFinishedPercent > 75) {
+    let className = "FinishedPercentGood";
+    document.write(
+      `<td class="${className}"> ${task.tasksFinishedPercent + "%"} </td>`
+    );
+  }
   document.write("<td>" + task.topic + "</td>");
-  document.write("<td class = 'totalTime'>" + task.totalTime + "</td>");
-  document.write(
-    "<td class = 'percent'>" + task.tasksFinishedPercent + "</td>"
-  );
+
   document.write("</tr>");
 }
 document.write("</table>");
