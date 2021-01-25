@@ -1,5 +1,3 @@
-"use strict";
-
 let task1 = {
   startedAt: new Date("2021-01-01:13:00"),
   finishedAt: new Date("2021-01-01:17:00"),
@@ -81,8 +79,7 @@ for (let task of taskTable) {
   task.startedAt = task.startedAt.toLocaleTimeString();
   task.finishedAt = task.finishedAt.toLocaleTimeString();
 }
-
-let tableHead = [
+const tableHead = [
   "Started At",
   "Finished At",
   "Total Time",
@@ -91,59 +88,97 @@ let tableHead = [
   "Tasks Finished Percent",
   "Topic",
 ];
-document.write("<table>");
-document.write("<tr class = 'tr'>");
-for (let head of tableHead) {
-  document.write("<th>" + head + "</th>");
-}
 
-document.write("</tr>");
+const table = document.createElement("table");
+const row1 = document.createElement("tr");
+for (let head of tableHead) {
+  const header = document.createElement("th");
+  const text = document.createTextNode(head);
+  header.appendChild(text);
+  row1.appendChild(header);
+}
+table.appendChild(row1);
+
+////////////////
+
+const CalculatingTimes = (className, row, totalTimeText) => {
+  const totalTime = document.createElement("td");
+  totalTime.className += className;
+  const text = document.createTextNode(totalTimeText + "hours");
+  totalTime.appendChild(text);
+  row.appendChild(totalTime);
+};
+const FinishedPercent = (className, row, tasksGiven, tasksFinished) => {
+  const p = Math.floor((tasksFinished / tasksGiven) * 100);
+  const testFinishedPercent = document.createElement("td");
+  testFinishedPercent.className += className;
+  const text = document.createTextNode(p + "%");
+  testFinishedPercent.appendChild(text);
+  row.appendChild(testFinishedPercent);
+};
+
 for (let task of taskTable) {
-  document.write("<tr>");
-  document.write("<td>" + task.startedAt + "</td>");
-  document.write("<td>" + task.finishedAt + "</td>");
+  const row = document.createElement("tr");
+  const startedAt = document.createElement("td");
+  const textStarAt = document.createTextNode(task.startedAt);
+  startedAt.appendChild(textStarAt);
+  row.appendChild(startedAt);
+
+  const finishedAt = document.createElement("td");
+  const textFinishedAt = document.createTextNode(task.finishedAt);
+  finishedAt.appendChild(textFinishedAt);
+  row.appendChild(finishedAt);
+
   if (task.totalTime <= 2) {
     let className = "totalTimeGood";
-    document.write(
-      `<td class="${className}"> ${task.totalTime + "hours"} </td>`
-    );
-  }
-  if (task.totalTime > 2 && task.totalTime <= 5) {
-    let className = "totalTimeM";
-    document.write(
-      `<td class="${className}"> ${task.totalTime + "hours"}  </td>`
-    );
+
+    CalculatingTimes(className, row, task.totalTime);
   }
 
+  if (task.totalTime > 2 && task.totalTime <= 5) {
+    let className = "totalTimeM";
+
+    CalculatingTimes(className, row, task.totalTime);
+  }
   if (task.totalTime > 5) {
     let className = "totalTimeBad";
-    document.write(
-      `<td class="${className}"> ${task.totalTime + "hours"} </td>`
-    );
+
+    CalculatingTimes(className, row, task.totalTime);
   }
-  document.write("<td>" + task.tasksGiven + "</td>");
-  document.write("<td>" + task.tasksFinished + "</td>");
+
+  const tasksGiven = document.createElement("td");
+  const td = document.createTextNode(task.tasksGiven);
+  tasksGiven.appendChild(td);
+  row.appendChild(tasksGiven);
+
+  const tasksFinished = document.createElement("td");
+  const textTasksFinished = document.createTextNode(task.tasksFinished);
+  tasksFinished.appendChild(textTasksFinished);
+  row.appendChild(tasksFinished);
+
   if (task.tasksFinishedPercent <= 50) {
     let className = "FinishedPercentBad";
-    document.write(
-      `<td class="${className}"> ${task.tasksFinishedPercent + "%"} </td>`
-    );
+
+    FinishedPercent(className, row, task.tasksGiven, task.tasksFinished);
   }
 
   if (task.tasksFinishedPercent > 50 && task.tasksFinishedPercent <= 75) {
     let className = "FinishedPercentM";
-    document.write(
-      `<td class="${className}"> ${task.tasksFinishedPercent + "%"} </td>`
-    );
+
+    FinishedPercent(className, row, task.tasksGiven, task.tasksFinished);
   }
+
   if (task.tasksFinishedPercent > 75) {
     let className = "FinishedPercentGood";
-    document.write(
-      `<td class="${className}"> ${task.tasksFinishedPercent + "%"} </td>`
-    );
-  }
-  document.write("<td>" + task.topic + "</td>");
 
-  document.write("</tr>");
+    FinishedPercent(className, row, task.tasksGiven, task.tasksFinished);
+  }
+
+  const topic = document.createElement("td");
+  const textTopic = document.createTextNode(task.topic);
+  topic.appendChild(textTopic);
+  row.appendChild(topic);
+
+  table.appendChild(row);
 }
-document.write("</table>");
+const body = document.getElementsByTagName("body")[0].appendChild(table);
