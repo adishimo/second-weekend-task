@@ -1,5 +1,7 @@
 # Second Weekend Task
 
+<!-- this is a comment -->
+
 ## General Requirements
 
 Create array with 10 objects, each object has the properties:
@@ -77,8 +79,7 @@ For `tasksFinishedPrecent` for example:
     50% < x <= 75% - blue
 
     75% < x         - deep blue
-   
-   
+
 ## Example for Final Outcome
 
-![example-outcome](./outcome-example.png)   
+![example-outcome](./outcome-example.png)
